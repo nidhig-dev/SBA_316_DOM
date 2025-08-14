@@ -14,8 +14,12 @@
     <h1>My Grocery List </h1>
     <div id="textDiv">
         <form>
-          <label>  <input type="textbox" name="textbox" id="textbox" placeholder="Add an item..."></label>
-          <label><button type="submit" name="btn" id="btn">Ok</button></label>
+          <label>  <input type="text" name="textbox" id="textbox" placeholder="Add an item..." 
+            required 
+            pattern="^[A-Za-z].*"
+            title="Item must start with a letter">
+        </label>
+          <button type="submit" name="btn" id="btn">Ok</button>
         </form>
     </div>
     <ul id="addedList">

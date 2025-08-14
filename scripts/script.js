@@ -6,6 +6,7 @@ let arrGroceries = [
     { ItemName: 'Onion' },
     { ItemName: 'Lettuce' },
     { ItemName: 'Apple' },
+    { ItemName: 'Banana'}
 ];
 
 // Creating a crossed off from array list using document fragment
@@ -16,12 +17,12 @@ h2.style.paddingLeft = '43px';
 h2.style.backgroundColor = 'rgba(0, 128, 0, 0.74)';
 divList.appendChild(h2);
 // for each element in the array, call the document fragment function
-let loadUl=document.createElement('ul');
-loadUl.setAttribute('id','crossUl');
+let loadUl = document.createElement('ul');
+loadUl.setAttribute('id', 'crossUl');
 loadUl.classList.toggle('strikethrough');
 divList.appendChild(loadUl);
 arrGroceries.forEach(Item => {
-    
+
     loadUl.appendChild(loadGroceryList(Item));
     divList.style.margin = '3px';
 });
@@ -30,26 +31,11 @@ arrGroceries.forEach(Item => {
 
 function loadGroceryList(Item) {
     console.log(Item);
-    let frag = document.createDocumentFragment();
-   // let div = document.getElementById('crossList')
-    // let ul = div.querySelector('ul');
-
+    let frag = document.createDocumentFragment();    
     let li = document.createElement('li');
     let liText = document.createTextNode('' + Item.ItemName);
-    li.appendChild(liText);
-    // ul.appendChild(li);
-    // get the ul list before adding listener to it
-
-    // document.getElementById('crossList').firstChild.addEventListener('click', handleCrossOff);
-    // ul.classList.toggle('strikethrough');
-    frag.appendChild(li);
-    // frag.appendChild(ul)
-    // let hr = document.createElement('hr');
-    // hr.style.backgroundColor = 'rgba(105, 105, 105, 0.22)';
-    // hr.style.border = 'none';
-    // hr.style.height = '1px';
-    // frag.appendChild(hr);
-
+    li.appendChild(liText);   
+    frag.appendChild(li);    
     return (frag);
 }
 // This function uses event delegation to strike through every item
@@ -62,21 +48,17 @@ function handleCrossOff(event) {
 function handleAddItems(event) {
     // Prevent default functions like form refresh
     event.preventDefault();
+    if (!textbox.checkValidity()) {
+        textbox.reportValidity();
+        return;
+    }
     // if text box is empty then pop a window alert
-    if (textbox.value) {
+    if (textbox.value && textbox.value !== " ") {
         console.log(textbox.value);
-        // let ul = document.querySelector('ul');
-        // console.log(ul)
         let li = document.createElement('li');
-        // let checkbox = document.createElement('input')
-        // checkbox.setAttribute('type','checkbox');
-        // checkbox.setAttribute('name','checkbox');
-        // li.appendChild(checkbox);
         let delBtn = document.createElement("button");
         delBtn.setAttribute('type', 'submit');
         delBtn.setAttribute('name', 'delbtn');
-
-
         delBtn.textContent = 'delete';
         delBtn.style.padding = '3px';
         delBtn.style.margin = '5px 10px';
@@ -107,107 +89,58 @@ function handleAddItems(event) {
         if (duplicateItem == false) {
             li.appendChild(document.createTextNode(' ' + textbox.value));
             li.appendChild(delBtn);
-
-
-            addedListul.appendChild(li);
-            // let hr = document.createElement('hr');
-            // hr.style.backgroundColor = 'rgba(105, 105, 105, 0.22)';
-            // hr.style.border = 'none';
-            // hr.style.height = '1px';
-            // addedListul.appendChild(hr);
-
-
+            addedListul.appendChild(li);            
         }
         textbox.value = '';
         textbox.focus;
         return;
     }
     else {
-        window.alert("enter a list item");
+        window.alert("Please enter a item to add!");
         return;
     }
 }
 function handleDeleteItem(event) {
-
-
     event.preventDefault();
     let li = event.target.closest('li');
-    // let oldhr=event.target.closest('hr');
     console.log("in delete li is", li)
     if (window.confirm("Are you sure you want to delete this item?")) {
         if (event.target.tagName === 'BUTTON') {
-
-
             //get the content of list without the text of delete button
             let itemText = li.firstChild.textContent.trim();
-            //    console.log("item text is",itemText);
-            let div = document.getElementById('crossList');
-            // let ul=document.createElement('ul')
-            let ul = div.querySelector('ul')
-            let newli = document.createElement('li');
-            let liText = document.createTextNode('' + itemText);
-            newli.appendChild(liText);
-            ul.appendChild(newli);
-            ul.classList.add('strikethrough');
-            divList.appendChild(ul);
+            let divList = document.getElementById('crossList');
+            let ul = divList.querySelector('#crossUl')
+            let crossListLi = ul.querySelectorAll('li');
+            let duplicateChk = false;
+            crossListLi.forEach(compLi => {
+                //checking for duplicate entry
+                console.log("Cross off list is", compLi.firstChild.textContent.toUpperCase());
+                console.log("item to be deleted is", itemText.toUpperCase());
+                if (compLi.firstChild.textContent.toUpperCase() == itemText.toUpperCase()) {
+                    console.log("There is a dupliacte entry")
+                    duplicateChk = true;
+                }
+
+            });
+            if (duplicateChk == false) {
+                let newli = document.createElement('li');
+                let liText = document.createTextNode('' + itemText);
+                newli.appendChild(liText);
+                ul.appendChild(newli);
+                ul.classList.add('strikethrough');
+                divList.appendChild(ul);
+            }
             let newdiv = document.getElementById('crossList');
-            //let newul=newdiv.querySelectorAll('ul');
-            //console.log("new ul is ",newul);
-            //newul.forEach(li => {
-            //  console.log("new li is", li.textContent);
             let newliItem = newdiv.querySelectorAll('li');
             console.log("new li is ", newliItem);
             newliItem.forEach(eachli => {
-
-
                 eachli.addEventListener('click', handleAddCrossItem);
-
-
             });
-
-
-            // let hr = document.createElement('hr');
-            // hr.style.backgroundColor = 'rgba(105, 105, 105, 0.22)';
-            // hr.style.border = 'none';
-            // hr.style.height = '1px';
-            // divList.appendChild(hr);
             li.remove();
-            // hr.remove();
-
         }
-
-
     }
     return;
 }
-// let newdiv=document.getElementById('crossList');
-// //let newul=newdiv.querySelectorAll('ul');
-// //console.log("new ul is ",newul);
-// //newul.forEach(li => {
-//   //  console.log("new li is", li.textContent);
-// let newli = newdiv.querySelectorAll('li');
-// console.log("new li is ",newli);
-// newli.forEach(li => {
-
-
-//     li.addEventListener('click',handleAddCrossItem);
-
-
-// });
-// let newdiv = document.getElementById('crossList');
-// //let newul=newdiv.querySelectorAll('ul');
-// //console.log("new ul is ",newul);
-// //newul.forEach(li => {
-// //  console.log("new li is", li.textContent);
-// let newli = newdiv.querySelectorAll('li');
-// console.log("new li is ", newli);
-// newli.forEach(li => {
-
-
-//     li.addEventListener('click', handleAddCrossItem);
-
-
-// });
 
 function handleAddCrossItem(event) {
     console.log("this is where i clicked", event.target.textContent);
@@ -226,7 +159,6 @@ function handleAddCrossItem(event) {
     delBtn.style.height = '30px';
     delBtn.style.fontSize = '15px';
     delBtn.addEventListener('click', handleDeleteItem);
-    // border - radius: 5px;
 
     let crossedListul = document.getElementById('addedList');
     console.log("added list ul is", crossedListul);
@@ -250,16 +182,7 @@ function handleAddCrossItem(event) {
     if (duplicateItem == false) {
         li.appendChild(document.createTextNode(' ' + event.target.textContent));
         li.appendChild(delBtn);
-
-
         crossedListul.appendChild(li);
-        // let hr = document.createElement('hr');
-        // hr.style.backgroundColor = 'rgba(105, 105, 105, 0.22)';
-        // hr.style.border = 'none';
-        // hr.style.height = '1px';
-        // addedListul.appendChild(hr);
-
-
     }
     event.target.remove();
     textbox.focus();
