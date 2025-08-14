@@ -127,3 +127,86 @@ function handleAddItems(event) {
         return;
     }
 }
+function handleDeleteItem(event) {
+
+
+    event.preventDefault();
+    let li = event.target.closest('li');
+    // let oldhr=event.target.closest('hr');
+    console.log("in delete li is", li)
+    if (window.confirm("Are you sure you want to delete this item?")) {
+        if (event.target.tagName === 'BUTTON') {
+
+
+            //get the content of list without the text of delete button
+            let itemText = li.firstChild.textContent.trim();
+            //    console.log("item text is",itemText);
+            let div = document.getElementById('crossList');
+            // let ul=document.createElement('ul')
+            let ul = div.querySelector('ul')
+            let newli = document.createElement('li');
+            let liText = document.createTextNode('' + itemText);
+            newli.appendChild(liText);
+            ul.appendChild(newli);
+            ul.classList.add('strikethrough');
+            divList.appendChild(ul);
+            let newdiv = document.getElementById('crossList');
+            //let newul=newdiv.querySelectorAll('ul');
+            //console.log("new ul is ",newul);
+            //newul.forEach(li => {
+            //  console.log("new li is", li.textContent);
+            let newliItem = newdiv.querySelectorAll('li');
+            console.log("new li is ", newliItem);
+            newliItem.forEach(eachli => {
+
+
+                eachli.addEventListener('click', handleAddCrossItem);
+
+
+            });
+
+
+            // let hr = document.createElement('hr');
+            // hr.style.backgroundColor = 'rgba(105, 105, 105, 0.22)';
+            // hr.style.border = 'none';
+            // hr.style.height = '1px';
+            // divList.appendChild(hr);
+            li.remove();
+            // hr.remove();
+
+        }
+
+
+    }
+    return;
+}
+// let newdiv=document.getElementById('crossList');
+// //let newul=newdiv.querySelectorAll('ul');
+// //console.log("new ul is ",newul);
+// //newul.forEach(li => {
+//   //  console.log("new li is", li.textContent);
+// let newli = newdiv.querySelectorAll('li');
+// console.log("new li is ",newli);
+// newli.forEach(li => {
+
+
+//     li.addEventListener('click',handleAddCrossItem);
+
+
+// });
+// let newdiv = document.getElementById('crossList');
+// //let newul=newdiv.querySelectorAll('ul');
+// //console.log("new ul is ",newul);
+// //newul.forEach(li => {
+// //  console.log("new li is", li.textContent);
+// let newli = newdiv.querySelectorAll('li');
+// console.log("new li is ", newli);
+// newli.forEach(li => {
+
+
+//     li.addEventListener('click', handleAddCrossItem);
+
+
+// });
+
+
