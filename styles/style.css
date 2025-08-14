@@ -1,0 +1,70 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+
+}
+
+body {
+    background-color: black;
+    color: aliceblue;
+
+}
+
+h1 {
+    margin-top: 3px;
+    text-align: center;
+
+}
+
+#textDiv {
+    text-align: center;
+}
+
+#textbox {
+    width: 350px;
+    padding: 10px;
+    margin: 50px;
+    border-radius: 5px;
+}
+
+li {
+    list-style-type: none;
+    padding: 5px;
+    font-size:20px; 
+
+}
+
+#btn {
+    width: 40px;
+    height: 40px;
+    padding: 3px;
+    margin: 5px 10px;
+    border-radius: 5px; 
+    font-size: 15px;;  
+}
+
+button[name="delbtn"] {
+    padding: 3px;
+    margin: 5px 10px;
+    border-radius: 5px;
+    width: 60px;
+    height: 30px;
+    font-size: 15px;
+        
+    
+}
+
+hr{
+    background-color:rgba(105, 105, 105, 0.22);
+    border:none;
+    height:1px;
+    
+}
+
+.strikethrough {
+    text-decoration: line-through;
+}

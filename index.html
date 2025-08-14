@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles/style.css">
+    <script defer src="./scripts/script.js"></script>
+</head>
+
+<body>
+    <nav></nav>
+    <h1>My Grocery List </h1>
+    <div id="textDiv">
+        <form>
+          <label>  <input type="textbox" name="textbox" id="textbox" placeholder="Add an item..."></label>
+          <label><button type="submit" name="btn" id="btn">Ok</button></label>
+        </form>
+    </div>
+    <ul id="addedList">
+        <li>
+            Mangoes
+            <button type="submit" name='delbtn' id="delbtn1" onclick="handleDeleteItem(event)">delete</button> 
+        </li>        
+        <li>
+            Pasta
+            <button type="submit" name='delbtn' id="delbtn2" onclick="handleDeleteItem(event)">delete</button>
+        </li>
+        </ul>
+    <div id="crossList">
+      
+    </div>
+</body>
+
+</html>
