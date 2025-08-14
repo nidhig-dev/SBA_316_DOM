@@ -52,3 +52,78 @@ function loadGroceryList(Item) {
 
     return (frag);
 }
+// This function uses event delegation to strike through every item
+function handleCrossOff(event) {
+    this.classList.toggle("strikethrough");
+}
+
+
+// This Function adds the item at the click of OK button or Enter
+function handleAddItems(event) {
+    // Prevent default functions like form refresh
+    event.preventDefault();
+    // if text box is empty then pop a window alert
+    if (textbox.value) {
+        console.log(textbox.value);
+        // let ul = document.querySelector('ul');
+        // console.log(ul)
+        let li = document.createElement('li');
+        // let checkbox = document.createElement('input')
+        // checkbox.setAttribute('type','checkbox');
+        // checkbox.setAttribute('name','checkbox');
+        // li.appendChild(checkbox);
+        let delBtn = document.createElement("button");
+        delBtn.setAttribute('type', 'submit');
+        delBtn.setAttribute('name', 'delbtn');
+
+
+        delBtn.textContent = 'delete';
+        delBtn.style.padding = '3px';
+        delBtn.style.margin = '5px 10px';
+        delBtn.style.borderRadius = '5px'
+        delBtn.style.width = '60px';
+        delBtn.style.height = '30px';
+        delBtn.style.fontSize = '15px';
+        delBtn.addEventListener('click', handleDeleteItem);
+        // border - radius: 5px;
+        let addedListul = document.querySelector('#addedList');
+        //console.log("added list ul is", addedListul);
+        let addedListli = addedListul.getElementsByTagName('li');
+        console.log("added list li is", addedListli);
+        let duplicateItem = false;
+        delBtn.setAttribute('id', `delbtn${addedListli.length + 1}`)
+        for (let i = 0; i < addedListli.length; i++) {
+            console.log("list content is ", (addedListli[i].firstChild).textContent);
+            console.log("I want to add", textbox.value);
+            //Making the list Case insensitive  
+            if ((addedListli[i].firstChild.textContent.trim()).toUpperCase() == (textbox.value).toUpperCase()) {
+                console.log("setting duplicate item to false")
+                window.alert("This item already exists!");
+                duplicateItem = true;
+            }
+
+        }
+        // If item is not duplicate, add it, else skip it
+        if (duplicateItem == false) {
+            li.appendChild(document.createTextNode(' ' + textbox.value));
+            li.appendChild(delBtn);
+
+
+            addedListul.appendChild(li);
+            // let hr = document.createElement('hr');
+            // hr.style.backgroundColor = 'rgba(105, 105, 105, 0.22)';
+            // hr.style.border = 'none';
+            // hr.style.height = '1px';
+            // addedListul.appendChild(hr);
+
+
+        }
+        textbox.value = '';
+        textbox.focus;
+        return;
+    }
+    else {
+        window.alert("enter a list item");
+        return;
+    }
+}
