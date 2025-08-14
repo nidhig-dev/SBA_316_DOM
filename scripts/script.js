@@ -209,4 +209,60 @@ function handleDeleteItem(event) {
 
 // });
 
+function handleAddCrossItem(event) {
+    console.log("this is where i clicked", event.target.textContent);
+
+    let li = document.createElement('li');
+    let delBtn = document.createElement("button");
+    delBtn.setAttribute('type', 'submit');
+    delBtn.setAttribute('name', 'delbtn');
+
+
+    delBtn.textContent = 'delete';
+    delBtn.style.padding = '3px';
+    delBtn.style.margin = '5px 10px';
+    delBtn.style.borderRadius = '5px'
+    delBtn.style.width = '60px';
+    delBtn.style.height = '30px';
+    delBtn.style.fontSize = '15px';
+    delBtn.addEventListener('click', handleDeleteItem);
+    // border - radius: 5px;
+
+    let crossedListul = document.getElementById('addedList');
+    console.log("added list ul is", crossedListul);
+    let crossedListli = crossedListul.getElementsByTagName('li');
+    console.log("added list li is", crossedListli);
+    let duplicateItem = false;
+    delBtn.setAttribute('id', `delbtn${crossedListli.length + 1}`)
+    for (let i = 0; i < crossedListli.length; i++) {
+        console.log("list content is ", (crossedListli[i].firstChild).textContent);
+        console.log("I want to add", event.target.textContent);
+        //Making the list Case insensitive  
+        if ((crossedListli[i].firstChild.textContent.trim()).toUpperCase() == (event.target.textContent).toUpperCase()) {
+            console.log("setting duplicate item to false")
+            window.alert("This item already exists!");
+            duplicateItem = true;
+        }
+
+
+    }
+    // If item is not duplicate, add it, else skip it
+    if (duplicateItem == false) {
+        li.appendChild(document.createTextNode(' ' + event.target.textContent));
+        li.appendChild(delBtn);
+
+
+        crossedListul.appendChild(li);
+        // let hr = document.createElement('hr');
+        // hr.style.backgroundColor = 'rgba(105, 105, 105, 0.22)';
+        // hr.style.border = 'none';
+        // hr.style.height = '1px';
+        // addedListul.appendChild(hr);
+
+
+    }
+    event.target.remove();
+    textbox.focus();
+    return;
+}
 
