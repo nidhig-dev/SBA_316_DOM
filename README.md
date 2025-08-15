@@ -4,7 +4,8 @@
  
 * Text box will let user add an item to the active list of groceries with a click of submit button.
 * Delete button will delete the item from active list and add it to crossed off list with a strike through.
-* Clicking on the crossed off item will delete the item from the crossed off list and put it back in the active list.
+
+- <span style="color:red;">Clicking on the crossed off item will delete the item from the crossed off list and put it back in the active list.</span>
 
 ## Validation
 - Check if text box is null or empty string
