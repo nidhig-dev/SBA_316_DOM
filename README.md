@@ -2,16 +2,18 @@
  Created a grocery List app. 
  ## Functionality
  
-* Text box will let user add an item to the active list of groceries with a click of submit button.
+* Input text box will let user add an item to the active list of groceries with a click of submit button.
 * Delete button will delete the item from active list and add it to crossed off list with a strike through.
 
 - **Clicking on the crossed off item will delete the item from the crossed off list and put it back in the active list.**
 
 ## Validation
-- Check if text box is null or empty string
+- Check if text box is null or empty string or trailing spaces.
 - Item name cannot start with number or special character
 - Check for duplicate item names, if item is already in the list 
 - Confirm before deleting an item
+- If deleted item exists in crossed off list then only delete it from active list bu dont add it to crossed off list.
+- While adding a crossed off item back into the active list, check again for duplicate value.
 
 ## Requirement
 
@@ -35,7 +37,7 @@
 
 - ✅Modify at least one attribute of an element in response to user interaction.
 
--✅ Register at least two different event listeners and create the associated event handler functions.
+- ✅Register at least two different event listeners and create the associated event handler functions.
 
 - ✅Use at least two Browser Object Model (BOM) properties or methods.
 
@@ -55,8 +57,8 @@
 
 
 - What could you have done differently during the planning stages of your project to make the execution easier?
-   - I could have done better naming of all the elements I was creating.At one point, I got confused between all the ul and li that I created.
+   - I could have done better naming of all the elements I was creating or getting from document.At one point, I got confused between all the ul and li that I created/grabbed.
 
 - What would you add to, or change about your application if given more time?
 
-    - I would give user the option to add/subtract quantities of the item as well if given time
+    - I would give user the quantity option to add/subtract quantities of the item if given time

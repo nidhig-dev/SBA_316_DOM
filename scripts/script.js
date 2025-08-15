@@ -1,10 +1,8 @@
 let form = document.getElementById('AddItem');
 let textbox=form.elements["textbox"];
 textbox.focus();
-form.addEventListener("submit", handleAddItems)
-// let textbox = document.getElementById('textbox');
+form.addEventListener("submit", handleAddItems);
 let btnAdd = document.querySelector('#btn');
-// btnAdd.addEventListener('click', handleAddItems);
 let arrGroceries = [
     { ItemName: 'Tomatoes', qty: 1,Variety:'Roma' },
     { ItemName: 'Onion', qty: 1, Variety: 'white' },
@@ -13,7 +11,7 @@ let arrGroceries = [
     { ItemName: 'Banana', qty: 1, Variety:'Organic' }
 ];
 
-// Creating a crossed off from array list using document fragment
+// Creating a crossed off list from array list using document fragment
 let divList = document.getElementById('crossList');
 let h2 = document.createElement('h2');
 h2.textContent = 'Crossed off';
@@ -36,7 +34,7 @@ arrGroceries.forEach(Item => {
     divList.style.margin = '3px';
 });
 
-// This function loads the items that have been crossed off using document fragment
+// This function loads the items from the array that have been crossed off using document fragment
 
 function loadGroceryList(Item) {
     
@@ -90,6 +88,7 @@ function handleAddItems(event) {
         for (let i = 0; i < addedListli.length; i++) {
             //Comparing the list by making it Case insensitive  
             if ((addedListli[i].firstChild.textContent.trim()).toUpperCase() == (textbox.value).toUpperCase()) {
+            //    If item is duplicate, pop a message
                 window.alert("This item already exists!");
                 duplicateItem = true;
             }
