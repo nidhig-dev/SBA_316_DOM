@@ -1,5 +1,4 @@
 let form = document.getElementById('AddItem');
-console.log("form is",form);
 let textbox=form.elements["textbox"];
 textbox.focus();
 form.addEventListener("submit", handleAddItems)
@@ -21,6 +20,11 @@ h2.textContent = 'Crossed off';
 h2.style.paddingLeft = '43px';
 h2.style.backgroundColor = 'rgba(0, 128, 0, 0.74)';
 divList.appendChild(h2);
+
+let p=document.createElement('p');
+p.innerHTML ='<span>Click on crossed off item to add it back</span>';
+p.style.paddingLeft='43px';
+divList.appendChild(p);
 // for each element in the array, call the document fragment function
 let loadUl = document.createElement('ul');
 loadUl.setAttribute('id', 'crossUl');
@@ -35,7 +39,7 @@ arrGroceries.forEach(Item => {
 // This function loads the items that have been crossed off using document fragment
 
 function loadGroceryList(Item) {
-    console.log(Item);
+    
     let frag = document.createDocumentFragment();    
     let li = document.createElement('li');
     li.setAttribute("class", "deleted");
@@ -63,7 +67,7 @@ function handleAddItems(event) {
         btnAdd.style.opacity = "1";   
     }, 2000); // 2000 ms = 2 seconds
 
-    // if text box is empty then pop a window alert
+    // if text box is empty or null or trailing spaces, then pop a window alert
     if (textbox.value && textbox.value !== " " && textbox.value == textbox.value.trim()) 
      {
         let li = document.createElement('li');
@@ -112,7 +116,7 @@ function handleAddItems(event) {
 function handleDeleteItem(event) {
     event.preventDefault();
     
-    //getting the list against the delete button
+    //getting the list against the delete button. 'closest' will give the clciked li.
     let li = event.target.closest('li');
     if (window.confirm("Are you sure you want to delete this item?")) {
         // checking if delete button was clicked
@@ -144,7 +148,6 @@ function handleDeleteItem(event) {
             // add event listener to the items
             let newdiv = document.getElementById('crossList');
             let newliItem = newdiv.querySelectorAll('li');
-            console.log("new li is ", newliItem);
             newliItem.forEach(eachli => {
                 eachli.addEventListener('click', handleAddCrossItem);
             });
