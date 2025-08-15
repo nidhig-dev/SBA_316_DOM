@@ -10,16 +10,16 @@
 </head>
 
 <body>
-    <nav></nav>
     <h1>My Grocery List </h1>
     <div id="textDiv">
-        <form>
-          <label>  <input type="text" name="textbox" id="textbox" placeholder="Add an item..." 
+        <form id="AddItem">
+          <label>  
+            <input type="text" name="textbox" id="textbox" placeholder="Add an item..." 
             required 
             pattern="^[A-Za-z].*"
-            title="Item must start with a letter">
+            title="Item must start with a letter"/>
         </label>
-          <button type="submit" name="btn" id="btn">Ok</button>
+          <input type="submit" name="btn" id="btn" value="ok"/>
         </form>
     </div>
     <ul id="addedList">

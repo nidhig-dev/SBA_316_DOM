@@ -1,6 +1,11 @@
-let textbox = document.getElementById('textbox');
+let form = document.getElementById('AddItem');
+console.log("form is",form);
+let textbox=form.elements["textbox"];
+textbox.focus();
+form.addEventListener("submit", handleAddItems)
+// let textbox = document.getElementById('textbox');
 let btnAdd = document.querySelector('#btn');
-btnAdd.addEventListener('click', handleAddItems);
+// btnAdd.addEventListener('click', handleAddItems);
 let arrGroceries = [
     { ItemName: 'Tomatoes' },
     { ItemName: 'Onion' },
@@ -33,9 +38,12 @@ function loadGroceryList(Item) {
     console.log(Item);
     let frag = document.createDocumentFragment();    
     let li = document.createElement('li');
+    li.setAttribute("class", "deleted");
     let liText = document.createTextNode('' + Item.ItemName);
     li.appendChild(liText);   
-    frag.appendChild(li);    
+    frag.appendChild(li); 
+    // Adding event listener to already existing crossed off list 
+    li.addEventListener('click', handleAddCrossItem);      
     return (frag);
 }
 // This function uses event delegation to strike through every item
@@ -48,13 +56,16 @@ function handleCrossOff(event) {
 function handleAddItems(event) {
     // Prevent default functions like form refresh
     event.preventDefault();
-    if (!textbox.checkValidity()) {
-        textbox.reportValidity();
-        return;
-    }
+    // Making the ok button change color
+    btnAdd.style.opacity='0.5';
+    setTimeout(() => {
+        //restore it back to opacity 1 after 2 seconds
+        btnAdd.style.opacity = "1";   
+    }, 2000); // 2000 ms = 2 seconds
+
     // if text box is empty then pop a window alert
-    if (textbox.value && textbox.value !== " ") {
-        console.log(textbox.value);
+    if (textbox.value && textbox.value !== " " && textbox.value == textbox.value.trim()) 
+     {
         let li = document.createElement('li');
         let delBtn = document.createElement("button");
         delBtn.setAttribute('type', 'submit');
@@ -67,19 +78,14 @@ function handleAddItems(event) {
         delBtn.style.height = '30px';
         delBtn.style.fontSize = '15px';
         delBtn.addEventListener('click', handleDeleteItem);
-        // border - radius: 5px;
         let addedListul = document.querySelector('#addedList');
-        //console.log("added list ul is", addedListul);
         let addedListli = addedListul.getElementsByTagName('li');
-        console.log("added list li is", addedListli);
         let duplicateItem = false;
+        // setting dynamic id of buttons
         delBtn.setAttribute('id', `delbtn${addedListli.length + 1}`)
         for (let i = 0; i < addedListli.length; i++) {
-            console.log("list content is ", (addedListli[i].firstChild).textContent);
-            console.log("I want to add", textbox.value);
-            //Making the list Case insensitive  
+            //Comparing the list by making it Case insensitive  
             if ((addedListli[i].firstChild.textContent.trim()).toUpperCase() == (textbox.value).toUpperCase()) {
-                console.log("setting duplicate item to false")
                 window.alert("This item already exists!");
                 duplicateItem = true;
             }
@@ -87,6 +93,7 @@ function handleAddItems(event) {
         }
         // If item is not duplicate, add it, else skip it
         if (duplicateItem == false) {
+            // Avoiding overwriting the list
             li.appendChild(document.createTextNode(' ' + textbox.value));
             li.appendChild(delBtn);
             addedListul.appendChild(li);            
@@ -96,15 +103,19 @@ function handleAddItems(event) {
         return;
     }
     else {
-        window.alert("Please enter a item to add!");
+        window.alert("Please enter an item without trailing spaces!");
         return;
     }
 }
+// This function will delete the item from active list when delete button is clicked
+// and add it to the crossed offf list
 function handleDeleteItem(event) {
     event.preventDefault();
+    
+    //getting the list against the delete button
     let li = event.target.closest('li');
-    console.log("in delete li is", li)
     if (window.confirm("Are you sure you want to delete this item?")) {
+        // checking if delete button was clicked
         if (event.target.tagName === 'BUTTON') {
             //get the content of list without the text of delete button
             let itemText = li.firstChild.textContent.trim();
@@ -113,43 +124,45 @@ function handleDeleteItem(event) {
             let crossListLi = ul.querySelectorAll('li');
             let duplicateChk = false;
             crossListLi.forEach(compLi => {
-                //checking for duplicate entry
-                console.log("Cross off list is", compLi.firstChild.textContent.toUpperCase());
-                console.log("item to be deleted is", itemText.toUpperCase());
+                //checking for duplicate entry against the crossed off list
                 if (compLi.firstChild.textContent.toUpperCase() == itemText.toUpperCase()) {
-                    console.log("There is a dupliacte entry")
                     duplicateChk = true;
                 }
 
             });
+            // if not a duplicate entry then add the item to crossed off list
             if (duplicateChk == false) {
                 let newli = document.createElement('li');
                 let liText = document.createTextNode('' + itemText);
                 newli.appendChild(liText);
                 ul.appendChild(newli);
+                newli.setAttribute("class", "deleted");
+                // strike it like other items in crossed off list
                 ul.classList.add('strikethrough');
                 divList.appendChild(ul);
             }
+            // add event listener to the items
             let newdiv = document.getElementById('crossList');
             let newliItem = newdiv.querySelectorAll('li');
             console.log("new li is ", newliItem);
             newliItem.forEach(eachli => {
                 eachli.addEventListener('click', handleAddCrossItem);
             });
+            // Now remove the item from the active list
             li.remove();
+            textbox.focus();
         }
     }
     return;
 }
-
+// This function is called when I click on an item in crossed list. This removes the item from crossed list and adds it to active list
 function handleAddCrossItem(event) {
-    console.log("this is where i clicked", event.target.textContent);
-
+    
     let li = document.createElement('li');
+    // Creating a delete button to be added with the item to be added to active list
     let delBtn = document.createElement("button");
     delBtn.setAttribute('type', 'submit');
     delBtn.setAttribute('name', 'delbtn');
-
 
     delBtn.textContent = 'delete';
     delBtn.style.padding = '3px';
@@ -158,32 +171,27 @@ function handleAddCrossItem(event) {
     delBtn.style.width = '60px';
     delBtn.style.height = '30px';
     delBtn.style.fontSize = '15px';
+    // Adding event listener on new delete button 
     delBtn.addEventListener('click', handleDeleteItem);
-
+    // getting the active list and adding it to a variable for crossed list
     let crossedListul = document.getElementById('addedList');
-    console.log("added list ul is", crossedListul);
     let crossedListli = crossedListul.getElementsByTagName('li');
-    console.log("added list li is", crossedListli);
     let duplicateItem = false;
     delBtn.setAttribute('id', `delbtn${crossedListli.length + 1}`)
     for (let i = 0; i < crossedListli.length; i++) {
-        console.log("list content is ", (crossedListli[i].firstChild).textContent);
-        console.log("I want to add", event.target.textContent);
-        //Making the list Case insensitive  
+        //Making the list item Case insensitive and checking for duplicates  
         if ((crossedListli[i].firstChild.textContent.trim()).toUpperCase() == (event.target.textContent).toUpperCase()) {
-            console.log("setting duplicate item to false")
             window.alert("This item already exists!");
             duplicateItem = true;
         }
-
-
     }
-    // If item is not duplicate, add it, else skip it
+    // If item is not duplicate, add it, else skip adding the item
     if (duplicateItem == false) {
         li.appendChild(document.createTextNode(' ' + event.target.textContent));
         li.appendChild(delBtn);
         crossedListul.appendChild(li);
     }
+    // Remove the clciked list item
     event.target.remove();
     textbox.focus();
     return;

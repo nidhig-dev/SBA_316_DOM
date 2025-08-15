@@ -30,9 +30,9 @@
 
 - ✅Modify the HTML or text content of at least one element in response to user interaction using innerHTML, innerText, or textContent.
 
-- Modify the style and/or CSS classes of an element in response to user interactions using the style or classList properties.
+- ✅Modify the style and/or CSS classes of an element in response to user interactions using the style or classList properties.
 
-- Modify at least one attribute of an element in response to user interaction.
+- ✅Modify at least one attribute of an element in response to user interaction.
 
 -✅ Register at least two different event listeners and create the associated event handler functions.
 
@@ -40,7 +40,7 @@
 
 - ✅Include at least one form and/or input with HTML attribute validation.
 
-- Include at least one form and/or input with DOM event-based validation. (This can be the same form or input as the one above, but should include event-based validation in addition to the HTML attribute validation.)
+- ✅Include at least one form and/or input with DOM event-based validation. (This can be the same form or input as the one above, but should include event-based validation in addition to the HTML attribute validation.)
 
 - ✅Ensure that the program runs without errors (comment out things that do not work, and explain your blockers - you can still receive partial credit).
 
