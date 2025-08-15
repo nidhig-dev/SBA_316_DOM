@@ -6,11 +6,11 @@ form.addEventListener("submit", handleAddItems)
 let btnAdd = document.querySelector('#btn');
 // btnAdd.addEventListener('click', handleAddItems);
 let arrGroceries = [
-    { ItemName: 'Tomatoes' },
-    { ItemName: 'Onion' },
-    { ItemName: 'Lettuce' },
-    { ItemName: 'Apple' },
-    { ItemName: 'Banana'}
+    { ItemName: 'Tomatoes', qty: 1,Variety:'Roma' },
+    { ItemName: 'Onion', qty: 1, Variety: 'white' },
+    { ItemName: 'Lettuce', qty: 1, Variety: 'IceBerg' },
+    { ItemName: 'Apple', qty: 1, Variety:'Gala' },
+    { ItemName: 'Banana', qty: 1, Variety:'Organic' }
 ];
 
 // Creating a crossed off from array list using document fragment
@@ -100,6 +100,12 @@ function handleAddItems(event) {
             // Avoiding overwriting the list
             li.appendChild(document.createTextNode(' ' + textbox.value));
             li.appendChild(delBtn);
+            li.style.display='grid';
+            li.style.gridTemplateColumns='auto 1320px'; /* text takes space, button stays small */
+            li.style.alignItems= 'center';
+            li.style.gap='20px';/*space between button and text */
+            li.style.padding= '6px';
+
             addedListul.appendChild(li);            
         }
         textbox.value = '';
@@ -194,7 +200,7 @@ function handleAddCrossItem(event) {
         li.appendChild(delBtn);
         crossedListul.appendChild(li);
     }
-    // Remove the clciked list item
+    // Remove the clicked list item
     event.target.remove();
     textbox.focus();
     return;
