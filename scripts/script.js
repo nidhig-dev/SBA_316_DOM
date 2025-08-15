@@ -101,7 +101,7 @@ function handleAddItems(event) {
             li.appendChild(document.createTextNode(' ' + textbox.value));
             li.appendChild(delBtn);
             li.style.display='grid';
-            li.style.gridTemplateColumns='auto 1320px'; /* text takes space, button stays small */
+            li.style.gridTemplateColumns='auto 1250px'; /* text takes space, button stays small */
             li.style.alignItems= 'center';
             li.style.gap='20px';/*space between button and text */
             li.style.padding= '6px';

@@ -42,7 +42,7 @@ li {
     list-style-type: none;
     font-size:20px; 
     display:grid;
-    grid-Template-Columns:auto 1320px;
+    grid-Template-Columns:auto 1250px;
     /* text takes space, button stays small */
     align-Items:center;
     gap:20px;
