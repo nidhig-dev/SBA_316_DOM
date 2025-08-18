@@ -12,8 +12,8 @@
 - Item name cannot start with number or special character
 - Check for duplicate item names, if item is already in the list 
 - Confirm before deleting an item
-- If deleted item exists in crossed off list then only delete it from active list bu dont add it to crossed off list.
-- While adding a crossed off item back into the active list, check again for duplicate value.
+- If deleted item exists in crossed off list then only delete it from active list but dont add it to crossed off list.
+- While adding a crossed off item back into the active list, check again for duplicate value and display an alert if duplicate else add.
 
 ## Requirement
 
